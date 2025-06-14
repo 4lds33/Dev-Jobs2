@@ -1,4 +1,4 @@
-<form class="md:w-1/2 space-y-5">
+<form class="md:w-1/2 space-y-5" wire:submit.prevent='crearVacante'>
     <div>
         <x-input-label for="titulo" :value="__('Titulo Vacante')" />
 
@@ -6,10 +6,14 @@
             id="titulo" 
             class="block mt-1 w-full" 
             type="text" 
-            name="titulo" 
+            wire:model="titulo" 
             :value="old('titulo')" 
             placeholder="Titulo Vacante"
         />
+
+        @error('titulo')
+            <livewire:monstrar-alerta :message="$message"/>
+        @enderror
     </div>
 
     <div>
@@ -17,7 +21,7 @@
 
         <select
             id="salario"
-            name="salario"
+            wire:model="salario"
             class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full"
         >
             <option>--Selecione --</option>
@@ -25,6 +29,10 @@
                 <option value="{{$salario->id}}">{{$salario->salario}}</option>
             @endforeach
         </select>
+
+        @error('salario')
+            <livewire:monstrar-alerta :message="$message"/>
+        @enderror
     </div>
 
     <div>
@@ -32,10 +40,18 @@
 
         <select
             id="categoria"
-            name="categoria"
+            wire:model="categoria"
             class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full"
         >
+        <option>--Selecione --</option>
+            @foreach ($categorias as $categoria )
+                <option value="{{$categoria->id}}">{{$categoria->categoria}}</option>
+            @endforeach
         </select>
+
+        @error('categoria')
+            <livewire:monstrar-alerta :message="$message"/>
+        @enderror
     </div>
 
     <div>
@@ -45,10 +61,14 @@
             id="empresa" 
             class="block mt-1 w-full" 
             type="text" 
-            name="titulo" 
+            wire:model="titulo" 
             :value="old('empresa')" 
             placeholder="Empresa: ej. Netflix, Uber, Shopify"
         />
+
+        @error('empresa')
+            <livewire:monstrar-alerta :message="$message"/>
+        @enderror
     </div>
 
     <div>
@@ -58,19 +78,25 @@
             id="ultimo_dia" 
             class="block mt-1 w-full" 
             type="date" 
-            name="ultimo_dia" 
+            wire:model="ultimo_dia" 
             :value="old('ultimo_dia')" 
         />
+
+        @error('ultimo_dia')
+            <livewire:monstrar-alerta :message="$message"/>
+        @enderror
     </div>
 
     <div>
         <x-input-label for="descripcion" :value="__('Descripción Puesto')" />
         <textarea
-            name="descripcion"
+            wire:model="descripcion"
             placeholder="Descripción general del puesto, experiencia"
             class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full h-72"
         ></textarea>
-        
+        @error('discripcion')
+            <livewire:monstrar-alerta :message="$message"/>
+        @enderror
     </div>
 
     <div>
@@ -80,8 +106,20 @@
             id="imagen" 
             class="block mt-1 w-full" 
             type="file" 
-            name="imagen" 
+            wire:model="imagen"
+            accept="image/*"
         />
+
+        <div  class="my-5 w-96">
+            @if($imagen)
+                Imagen:
+                <img src="{{$imagen->temporaryUrl()}}">
+            @endif
+        </div>
+
+        @error('imagen')
+            <livewire:monstrar-alerta :message="$message"/>
+        @enderror
     </div>
 
     <x-primary-button>

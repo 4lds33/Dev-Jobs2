@@ -3,6 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VacanteController;
 use Illuminate\Support\Facades\Route;
+use App\Livewire\CrearVacante;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -10,6 +12,9 @@ Route::get('/', function () {
 
 Route::get('/dashboard', [VacanteController::class, 'index']
 )->middleware(['auth', 'verified'])->name('vacantes.index');
+
+Route::get('/vacantes/crear', CrearVacante::class)->middleware(
+    'auth')->name('vacantes.crear');
 
 
 Route::get('/vacantes/create', [VacanteController::class, 'create']
