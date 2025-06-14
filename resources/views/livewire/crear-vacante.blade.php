@@ -61,7 +61,7 @@
             id="empresa" 
             class="block mt-1 w-full" 
             type="text" 
-            wire:model="titulo" 
+            wire:model="empresa" 
             :value="old('empresa')" 
             placeholder="Empresa: ej. Netflix, Uber, Shopify"
         />
