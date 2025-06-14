@@ -110,12 +110,14 @@
             accept="image/*"
         />
 
-        <div  class="my-5 w-96">
-            @if($imagen)
-                Imagen:
-                <img src="{{$imagen->temporaryUrl()}}">
-            @endif
-        </div>
+    @if($imagen)
+            Imagen:
+        @if(is_object($imagen))
+        <img src="{{ $imagen->temporaryUrl() }}" class="w-48 mt-3" alt="Imagen temporal" />
+        @else
+        <img src="{{ asset('storage/vacantes/' . $imagen) }}" class="w-48 mt-3" alt="Imagen actual" />
+        @endif
+    @endif
 
         @error('imagen')
             <livewire:monstrar-alerta :message="$message"/>

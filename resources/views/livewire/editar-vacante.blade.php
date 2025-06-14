@@ -110,6 +110,20 @@
             accept="image/*"
         />
 
+        <<div class="my-5 w-96">
+            <x-input-label :value="__('Vista Previa de la Imagen')" />
+    
+            @if ($imagen)
+        @if (is_object($imagen))
+            {{-- Vista previa si es un archivo temporal nuevo --}}
+            <img src="{{ $imagen->temporaryUrl() }}" alt="Imagen temporal" />
+        @else
+            {{-- Vista previa si ya está guardada --}}
+            <img src="{{ asset('storage/vacantes/' . $imagen) }}" alt="Imagen existente" />
+            @endif
+        @endif
+        </div>
+
         {{-- 
             <div class="my-5 w-96">
             @if($imagen)
@@ -124,6 +138,6 @@
     </div>
 
     <x-primary-button>
-        Crear Vacante
+        Guardar Cambios
     </x-primary-button>
 </form>
