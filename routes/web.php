@@ -20,7 +20,9 @@ Route::get('/vacantes/crear', CrearVacante::class)->middleware(
 Route::get('/vacantes/create', [VacanteController::class, 'create']
 )->middleware(['auth', 'verified'])->name('vacantes.create');
 
-Route::get('/vacantes/{vacante}/edit', action: [VacanteController::class, 'edit']);
+Route::get('/vacantes/{vacante}/edit', [VacanteController::class, 'edit'])
+    ->middleware(['auth', 'verified'])
+    ->name('vacantes.edit');
 
 
 Route::middleware('auth')->group(function () {

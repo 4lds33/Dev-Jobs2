@@ -106,11 +106,11 @@
             id="imagen" 
             class="block mt-1 w-full" 
             type="file" 
-            wire:model="imagen"
+            wire:model="imagen_nueva"
             accept="image/*"
         />
 
-        <<div class="my-5 w-96">
+        <div class="my-5 w-96">
             <x-input-label :value="__('Vista Previa de la Imagen')" />
     
             @if ($imagen)
@@ -124,15 +124,14 @@
         @endif
         </div>
 
-        {{-- 
-            <div class="my-5 w-96">
-            @if($imagen)
-                Imagen:
-                <img src="{{ $imagen->temporaryUrl() }}">
+        <div class="my-5 w-96">
+            @if($imagen_nueva)
+                Imagen Nueva:
+                <img src="{{ $imagen_nueva->temporaryUrl() }}">
             @endif
-        </div> --}}
+        </div> 
 
-        @error('imagen')
+        @error('imagen_nueva')
             <livewire:monstrar-alerta :message="$message"/>
         @enderror
     </div>
