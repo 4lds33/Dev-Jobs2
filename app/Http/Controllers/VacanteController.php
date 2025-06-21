@@ -46,6 +46,8 @@ class VacanteController extends Controller
     {
         //
 
+        //$this->authorize('update', $vacante);
+
         return view('vacantes.edit', [
             'vacante' => $vacante
         ]);
