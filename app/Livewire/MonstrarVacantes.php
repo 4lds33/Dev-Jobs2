@@ -8,6 +8,12 @@ use App\Models\Vacante;
 class MonstrarVacantes extends Component
 {
     protected $listeners = ['eliminarVacante'];
+
+    public function monstrarAlerta($id)
+    {
+        $this->dispatch('monstrarAlerta', $id);
+    }
+
     public function eliminarVacante( Vacante $vacante)
     {
         $vacante->delete();
