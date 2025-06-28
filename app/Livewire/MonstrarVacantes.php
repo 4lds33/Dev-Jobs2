@@ -3,27 +3,29 @@
 namespace App\Livewire;
 
 use Livewire\Component;
+use Livewire\WithPagination;
 use App\Models\Vacante;
 
 class MonstrarVacantes extends Component
 {
-    protected $listeners = ['eliminarVacante'];
+    use WithPagination;
 
-    public function monstrarAlerta($id)
+    public function eliminarVacante($id)
     {
-        $this->dispatch('monstrarAlerta', $id);
+        $vacante = Vacante::find($id);
+
+        if ($vacante && $vacante->user_id === auth()->id()) {
+            $vacante->delete();
+            session()->flash('mensaje', 'Vacante eliminada correctamente.');
+        }
     }
 
-    public function eliminarVacante( Vacante $vacante)
-    {
-        $vacante->delete();
-    }
     public function render()
     {
-        $vacantes = Vacante::where('user_id', 1)->paginate(10);
+        $vacantes = Vacante::where('user_id', auth()->id())->latest()->paginate(10);
+
         return view('livewire.monstrar-vacantes', [
             'vacantes' => $vacantes
         ]);
-
     }
 }

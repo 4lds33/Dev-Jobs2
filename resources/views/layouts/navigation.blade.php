@@ -18,9 +18,12 @@
                         {{ __('Mis Vacantes') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('vacantes.create')" :active="request()->routeIs('vacantes.create')">
+                    <x-responsive-nav-link :href="route('vacantes.crear')" :active="request()->routeIs('vacantes.crear')">
                         {{ __('Crear Vacante') }}
-                    </x-nav-link>
+                    </x-responsive-nav-link>
+
+                </div>
+
                 </div>
 
                 @endauth
@@ -100,7 +103,7 @@
                 {{ __('Mis Vacantes') }}
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link :href="route('vacantes.create')" :active="request()->routeIs('vacantes.create')">
+            <x-responsive-nav-link :href="route('vacantes.crear')" :active="request()->routeIs('vacantes.crear')">
                 {{ __('Crear Vacante') }}
             </x-responsive-nav-link>
         </div>

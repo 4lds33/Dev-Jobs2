@@ -63,13 +63,13 @@ class CrearVacante extends Component
     }
     public function render()
     {
-        // Consultar BD
         $salarios = Salario::all();
         $categorias = Categoria::all();
 
         return view('livewire.crear-vacante', [
             'salarios' => $salarios,
             'categorias' => $categorias
-        ]);
+        ])->layout('layouts.app'); // ✅ <--- Esta línea SOLUCIONA el error
     }
+
 }

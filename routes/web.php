@@ -5,33 +5,39 @@ use App\Http\Controllers\VacanteController;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\CrearVacante;
 
-
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('dashboard');
 });
 
-Route::get('/dashboard', [VacanteController::class, 'index']
-)->middleware(['auth', 'verified'])->name('vacantes.index');
+// Dashboard principal
+Route::get('/dashboard', [VacanteController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard'); // ✅ nombre usado por Laravel después del login
+Route::get('/vacantes', function () {
+    return redirect()->route('dashboard');
+})->name('vacantes.index');
 
-Route::get('/vacantes/crear', CrearVacante::class)->middleware(
-    'auth')->name('vacantes.crear');
+// Crear vacante (componente Livewire)
+Route::get('/vacantes/crear', CrearVacante::class)
+    ->middleware(['auth', 'verified'])
+    ->name('vacantes.crear');
 
-
-Route::get('/vacantes/create', [VacanteController::class, 'create']
-)->middleware(['auth', 'verified'])->name('vacantes.create');
-
-Route::get('/vacantes/{vacante}/edit', [VacanteController::class, 'show'])
+// Ver detalles de una vacante
+Route::get('/vacantes/{vacante}', [VacanteController::class, 'show'])
+    ->middleware(['auth', 'verified'])
     ->name('vacantes.show');
 
-Route::get('/vacantes/{vacante}', [VacanteController::class, 'edit'])
+// Editar vacante
+Route::get('/vacantes/{vacante}/edit', [VacanteController::class, 'edit'])
     ->middleware(['auth', 'verified'])
     ->name('vacantes.edit');
 
-
+// Perfil de usuario
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// Auth routes (login, registro, etc.)
 require __DIR__.'/auth.php';
