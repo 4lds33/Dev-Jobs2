@@ -35,13 +35,11 @@ class CrearVacante extends Component
     {
         $datos = $this->validate();
 
-        //Almacenar la imagen
+        // Almacenar la imagen
         $imagen = $this->imagen->store('public/vacantes');
-        $datos['imagen']= str_replace('public/vacantes/', '', $imagen);
+        $datos['imagen'] = str_replace('public/vacantes/', '', $imagen);
 
-        //dd($$nombre_imagen);
-        
-        //Crear la vacante
+        // Crear la vacante con user_id correcto
         Vacante::create([
             'titulo' => $datos['titulo'],
             'salario_id' => $datos['salario'],
@@ -50,17 +48,14 @@ class CrearVacante extends Component
             'ultimo_dia' => $datos['ultimo_dia'],
             'descripcion' => $datos['descripcion'],
             'imagen' => $datos['imagen'],
-            'user_id' => 1,
-
+            'user_id' => auth()->id(), // ✅ AUTENTICADO
         ]);
 
-        //Crear un mensaje
-        session()->flash('mensaje', 'La vacante se publico correctamente');
-
-        //Redireccionar al usuario
+        // Mensaje y redirección
+        session()->flash('mensaje', 'La vacante se publicó correctamente');
         return redirect()->route('vacantes.index');
-
     }
+
     public function render()
     {
         $salarios = Salario::all();

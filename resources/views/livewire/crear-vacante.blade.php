@@ -110,18 +110,13 @@
                 accept="image/*"
             />
 
-            @if($imagen)
-                <p class="mt-2 text-sm text-gray-600">Previsualización:</p>
-                @if(is_object($imagen))
-                    <img src="{{ $imagen->temporaryUrl() }}" class="w-48 mt-3 rounded-lg shadow" alt="Imagen temporal" />
-                @else
-                    <img src="{{ asset('storage/vacantes/' . $imagen) }}" class="w-48 mt-3 rounded-lg shadow" alt="Imagen actual" />
-                @endif
+            @if ($imagen)
+                <div class="mt-4">
+                    <p class="text-sm font-semibold mb-1">Vista previa:</p>
+                    <img src="{{ $imagen->temporaryUrl() }}" class="rounded-lg w-64 shadow">
+                </div>
             @endif
 
-            @error('imagen')
-                <livewire:monstrar-alerta :message="$message"/>
-            @enderror
         </div>
 
         {{-- BOTÓN SUBMIT --}}
